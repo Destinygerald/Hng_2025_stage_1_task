@@ -127,10 +127,10 @@ class Base {
 			})
 
 		} catch (err) {
-			return res.status(500).json({
-				status: 'Failed',
-				message: err
-			})
+			return res.status(400).json({
+					number: "alphabet",
+					error: true
+				})
 		}
 	}
 
