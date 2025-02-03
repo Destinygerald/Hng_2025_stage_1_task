@@ -61,9 +61,7 @@ class Base {
 	funFact = (arg) => {
 
 		try {
-			let num = parseInt(arg)
-
-			let result = fetch(`http://numbersapi.com/${num}`)
+			let result = fetch(`http://numbersapi.com/${arg}`)
 				.then(res => res.text())
 				.then(res => {
 					return res
@@ -72,7 +70,7 @@ class Base {
 			return result
 			
 		} catch (err) {
-			return `${num} is  a boring num` 
+			return `${arg} is a number for which we're missing a fact (submit one to numbersapi at google mail!).` 
 		}
 
 	}
