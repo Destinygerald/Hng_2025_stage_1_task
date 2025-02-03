@@ -81,7 +81,7 @@ class Base {
 
 			const number = req.query.number
 
-			let number_int_format = parseInt(number)
+			let number_int_format = Math.floor(number)
 
 			if (!number || isNaN(number_int_format)) {
 				return res.status(400).json({
@@ -125,10 +125,10 @@ class Base {
 			})
 
 		} catch (err) {
-			return res.status(400).json({
-					number: number,
-					error: true
-				})
+			return res.status(500).json({
+				status: 'Failed',
+				message: err
+			})
 		}
 	}
 
