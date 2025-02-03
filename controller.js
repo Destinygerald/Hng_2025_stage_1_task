@@ -5,8 +5,8 @@ class Base {
 
 	}
 
-	isOdd = (arg) => {
-		return arg % 2 == 1 
+	isEven = (arg) => {
+		return arg % 2 == 0
 	}
 
 	isPerfect = (arg) => {
@@ -26,6 +26,9 @@ class Base {
 	}
 
 	isArmstrong = (arg) => {
+
+		if (arg < 0) return false;
+
 		let index = arg.toString().split('')
 
 		let initCheck = 0
@@ -43,7 +46,7 @@ class Base {
 	}
 
 	digitSum = (arg) => {
-		let index = arg.toString().split('')
+		let index = Math.abs(arg).toString().split('')
 
 		let sum = 0
 
@@ -101,12 +104,12 @@ class Base {
 				property.push('armstrong')
 			}
 
-			let isOdd = this.isOdd(number_int_format)
+			let isEven = this.isEven(number_int_format)
 
-			if (isOdd) {
-				property.push('odd')
-			} else {
+			if (isEven) {
 				property.push('even')
+			} else {
+				property.push('odd')
 			}
 
 			
