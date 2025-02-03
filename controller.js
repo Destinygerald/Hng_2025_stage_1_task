@@ -79,11 +79,11 @@ class Base {
 	classifyNumber = async(req, res) => {
 		try {
 
-			const { number } = req.query
+			const number = req.query.number
 
 			let number_int_format = parseInt(number)
 
-			if (!number || number_int_format == NaN) {
+			if (!number || isNaN(number_int_format)) {
 				return res.status(400).json({
 					number: "alphabet",
 					error: true
