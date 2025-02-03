@@ -85,7 +85,7 @@ class Base {
 
 			if (!number || isNaN(number_int_format)) {
 				return res.status(400).json({
-					number: "alphabet",
+					number: number,
 					error: true
 				})
 			}
@@ -126,7 +126,7 @@ class Base {
 
 		} catch (err) {
 			return res.status(400).json({
-					number: "alphabet",
+					number: number,
 					error: true
 				})
 		}
