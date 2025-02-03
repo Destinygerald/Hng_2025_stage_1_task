@@ -1,0 +1,139 @@
+const fetch = require('node-fetch')
+
+class Base {
+	constructor() {
+
+	}
+
+	isOdd = (arg) => {
+		return arg % 2 == 1 
+	}
+
+	isPerfect = (arg) => {
+		let root = Math.sqrt(arg)
+		
+		return (root - Math.floor(root)) == 0
+	}
+
+	isPrime = (arg) => {
+		if (arg <= 1) return false;
+
+		for (let i = 2; i < arg; i++) {
+			if (arg % i == 0) return false;
+
+			return true
+		} 
+	}
+
+	isArmstrong = (arg) => {
+		let index = arg.toString().split('')
+
+		let initCheck = 0
+
+		index.forEach(value => {
+			let intValue = parseInt(value)
+
+			let intCube = intValue * intValue * intValue
+
+			initCheck += intCube
+		})
+
+	
+		return arg == initCheck
+	}
+
+	digitSum = (arg) => {
+		let index = arg.toString().split('')
+
+		let sum = 0
+
+		index.forEach(value => {
+			let intValue = parseInt(value)
+			sum += intValue
+		})
+
+		return sum
+	}
+
+	funFact = (arg) => {
+
+		try {
+			let num = parseInt(arg)
+
+			let result = fetch(`http://numbersapi.com/${num}`)
+				.then(res => res.text())
+				.then(res => {
+					return res
+				})
+
+			return result
+			
+		} catch (err) {
+			return `${num} is  a boring num` 
+		}
+
+	}
+
+
+	classifyNumber = async(req, res) => {
+		try {
+
+			const { number } = req.query
+
+			let number_int_format = parseInt(number)
+
+			if (!number || number_int_format == NaN) {
+				return res.status(400).json({
+					number: "alphabet",
+					error: true
+				})
+			}
+
+			let property = []
+
+			let isPrime = this.isPrime(number_int_format)
+
+			let isPerfect = this.isPerfect(number_int_format)
+
+			let isArmstrong = this.isArmstrong(number_int_format)
+
+			if (isArmstrong) {
+				property.push('armstrong')
+			}
+
+			let isOdd = this.isOdd(number_int_format)
+
+			if (isOdd) {
+				property.push('odd')
+			} else {
+				property.push('even')
+			}
+
+			
+			let digit_sum = this.digitSum(number_int_format)
+
+			let fun_fact = await this.funFact(number_int_format)
+
+			return res.status(200).json({
+				number: number_int_format,
+				is_prime: isPrime,
+				is_perfect: isPerfect,
+				properties: property,
+				digit_sum: digit_sum,
+				fun_fact: fun_fact
+			})
+
+		} catch (err) {
+			return res.status(500).json({
+				status: 'Failed',
+				message: err
+			})
+		}
+	}
+
+}
+
+
+
+
+module.exports = Base
